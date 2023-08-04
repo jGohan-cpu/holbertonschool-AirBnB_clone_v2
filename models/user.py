@@ -1,3 +1,5 @@
+#!/usr/bin/pyhton3
+"""This module defines a class User"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship, backref
