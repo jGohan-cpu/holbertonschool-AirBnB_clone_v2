@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-from flask import Flask
 """Script that prints HBNB with /hbnb"""
+from flask import Flask
 
 
 app = Flask(__name__)
