@@ -48,8 +48,6 @@ def html_page(n):
     """route to display a html"""
     if type(n) is int:
         return render_template('5-number.html', number=n)
-    else:
-        raise TypeError
 
 
 if __name__ == '__main__':
