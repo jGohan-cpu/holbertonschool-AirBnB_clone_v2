@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Script that have 6 routes"""
+"""Script that have 7 routes"""
 from flask import Flask, render_template
 
 
@@ -46,6 +46,20 @@ def html_page(n):
     """route to display a html"""
     if type(n) is int:
         return render_template('5-number.html', number=n)
+    else:
+        raise TypeError
+
+
+@app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
+def is_odd_or_even(n):
+    """route that evaluates if n is odd or even"""
+    if type(n) is int:
+        if n % 2 == 0:
+            return render_template('6-number_odd_or_even.html',
+                                   number=n, text='even')
+        else:
+            return render_template('6-number_odd_or_even.html',
+                                   number=n, text='odd')
     else:
         raise TypeError
 

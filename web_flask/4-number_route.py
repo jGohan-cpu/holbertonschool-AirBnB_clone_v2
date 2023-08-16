@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Script that have 4 routes"""
+"""Script that have 5 routes"""
 from flask import Flask
 
 
