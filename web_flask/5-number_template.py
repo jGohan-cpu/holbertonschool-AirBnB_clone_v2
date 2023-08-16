@@ -43,7 +43,7 @@ def is_int(n):
         raise TypeError
 
 
-@app.route('/number_templates/<int:n>', strict_slashes=False)
+@app.route('/number_template/<int:n>', strict_slashes=False)
 def html_page(n):
     """route to display a html"""
     if type(n) is int:
