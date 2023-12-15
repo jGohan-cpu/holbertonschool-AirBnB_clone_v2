@@ -1,30 +1,52 @@
 #!/usr/bin/python3
-""" Module defines a class to manage file storage for hbnb clone"""
+"""
+Module to manage file storage for hbnb clone
+"""
+
+
 import json
 
 
 class FileStorage:
-    """This class manages storage of hbnb models in JSON format"""
+    """
+    This class manages storage of hbnb models in JSON format
+    """
+
     __file_path = "file.json"
     __objects = {}
 
     def all(self, cls=None):
-        """Returns a dictionary of models currently in storage, if a class
-        is specified, it returns of objects of said class"""
+        """
+        Returns a dictionary of models currently in storage.
+
+        Args:
+            cls (type, optional): The class to filter objects.
+            Defaults to None.
+
+        Returns:
+            dict: A dictionary of models or filtered objects.
+        """
         if cls is None:
             return FileStorage.__objects
         dir_same_cls = {}
         for key, value in FileStorage.__objects.items():
-            if value.__class__ == cls:
+            if isinstance(value, cls):
                 dir_same_cls[key] = value
         return dir_same_cls
 
     def new(self, obj):
-        """Adds new object to storage dictionary"""
-        self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
+        """
+        Adds a new object to the storage dictionary.
+
+        Args:
+            obj (BaseModel): The object to add to storage.
+        """
+        self.all().update({obj.__class__.__name__ + '.' + obj.id: obj})
 
     def save(self):
-        """Saves storage dictionary to file"""
+        """
+        Saves the storage dictionary to the JSON file.
+        """
         with open(FileStorage.__file_path, 'w') as f:
             temp = {}
             temp.update(FileStorage.__objects)
@@ -33,16 +55,23 @@ class FileStorage:
             json.dump(temp, f)
 
     def delete(self, obj=None):
-        """Deletes object from storage"""
+        """
+        Deletes an object from storage.
+
+        Args:
+            obj (BaseModel, optional): The object to delete. Defaults to None.
+        """
         if obj is None:
             return
 
-        key = obj.to_dict()['__class__'] + '.' + obj.id
+        key = obj.__class__.__name__ + '.' + obj.id
         if key in FileStorage.__objects:
             del FileStorage.__objects[key]
 
     def reload(self):
-        """Load storage dictionary from file"""
+        """
+        Loads the storage dictionary from the JSON file.
+        """
         from models.base_model import BaseModel
         from models.user import User
         from models.place import Place
@@ -66,5 +95,7 @@ class FileStorage:
             pass
 
     def close(self):
-        """Deserializes JSON to objects"""
+        """
+        Deserializes JSON to objects by calling the reload method.
+        """
         self.reload()
